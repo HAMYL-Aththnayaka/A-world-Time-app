@@ -7,28 +7,6 @@ class ChooseLocation extends StatefulWidget {
  
 class _ChooseLoactionState extends State<ChooseLocation>{
   
-  void getData() async{
-    //simulate nework request for a username
-   String username =  await Future.delayed(Duration(seconds:3),(){
-      return 'Yasas';
-     }
-    );
-    
-    //simulate nework request for a Bio
-    String bio =  await Future.delayed(Duration(seconds:2),(){
-      return 'Person Dumb';
-     }
-    );
-     print("${username} === ${bio}");
-  }
-
- @override
- void initState(){
-  super.initState();
-  getData();
-  print("Yasas the beast");
- }
-
 
 
   @override 
