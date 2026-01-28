@@ -11,10 +11,7 @@ class loading extends StatefulWidget {
  
 class _loadingState extends State<loading>{
 
-
-
-
-String time = 'loading ';
+///String time = 'loading ';
   /* void getTime() async{
    /* var uri = Uri.parse('https://jsonplaceholder.typicode.com/todos/1');
     var response  = await http.get(uri);
@@ -50,9 +47,10 @@ String time = 'loading ';
   void setupWorldTime() async{
     WorldTime instance = WorldTime(location: 'Colombo', flag: 'g', url: 'Asia/Colombo');
     await instance.getTime();
-    print(instance.time);
-    setState((){
-      time = instance.time;
+    Navigator.pushReplacementNamed(context,'/home',arguments:{
+      'location':instance.location,
+      'flag':instance.flag,
+      'time':instance.time,
     });
   }
 
@@ -69,7 +67,7 @@ String time = 'loading ';
     return Scaffold(
       body:Padding(
         padding:EdgeInsets.all(50.0),
-        child:Text('${time}'),
+        child:Text('Loading ...'),
       )
     );
   }

@@ -26,11 +26,17 @@ class WorldTime {
       Map data = jsonDecode(response.body);
 
       String datetime = data['datetime'];
-      String offset = data['utc_offset'].substring(1,3);
+      String offset = data['utc_offset'];
 
       DateTime now = DateTime.parse(datetime);
-      now = now.add(Duration(hours: int.parse(offset)));
+      int offsetHours = int.parse(offset.substring(1, 3));
+      int offsetMinutes = int.parse(offset.substring(4, 6));
 
+      if (offset.contains('+')) {
+      now = now.add(Duration(hours: offsetHours, minutes: offsetMinutes));
+    } else {
+      now = now.subtract(Duration(hours: offsetHours, minutes: offsetMinutes));
+    }
       //set the time property
       isDaytime = now.hour > 6 && now.hour < 20 ? true : false;
       time = "${now.hour}:${now.minute.toString().padLeft(2, '0')}";
