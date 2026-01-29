@@ -10,6 +10,7 @@ class loading extends StatefulWidget {
  
 class _loadingState extends State<loading>{
 
+///tesyngs
 ///String time = 'loading ';
   /* void getTime() async{
    /* var uri = Uri.parse('https://jsonplaceholder.typicode.com/todos/1');
