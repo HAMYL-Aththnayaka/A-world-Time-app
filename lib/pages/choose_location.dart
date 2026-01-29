@@ -12,12 +12,13 @@ class _ChooseLoactionState extends State<ChooseLocation>{
   // Europe
   WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
   WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
+  WorldTime(url: 'Europe/Warsaw', location: 'Warsaw', flag: 'poland.png'),
   WorldTime(url: 'Europe/Paris', location: 'Paris', flag: 'france.png'),
   WorldTime(url: 'Europe/Rome', location: 'Rome', flag: 'italy.png'),
   WorldTime(url: 'Europe/Madrid', location: 'Madrid', flag: 'spain.png'),
   
   // Asia
-  WorldTime(url: 'Asia/Colombo', location: 'Colombo', flag: 'sri_lanka.png'), // Added Sri Lanka
+  WorldTime(url: 'Asia/Colombo', location: 'Colombo', flag: 'sri_lanka.png'),
   WorldTime(url: 'Asia/Dubai', location: 'Dubai', flag: 'uae.png'),
   WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
   WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
@@ -48,7 +49,20 @@ class _ChooseLoactionState extends State<ChooseLocation>{
   WorldTime(url: 'Pacific/Auckland', location: 'Auckland', flag: 'new_zealand.png'),
 ];
 
+void updateTheTime(index) async{
+   WorldTime instance =locations[index];
+   await instance.getTime();
 
+  //going to the home screen
+  //epa use karanna navigation
+  Navigator.pop(context,{
+      'location':instance.location,
+      'flag':instance.flag,
+      'time':instance.time,
+      'isDaytime':instance.isDaytime,
+  });
+
+}
 
   @override 
   Widget build(BuildContext context){
@@ -79,7 +93,7 @@ class _ChooseLoactionState extends State<ChooseLocation>{
               child: Card(
                 child:ListTile(
                   onTap:(){
-              
+                       updateTheTime(index);
                   },
                   title:Text(
                     locations[index].location

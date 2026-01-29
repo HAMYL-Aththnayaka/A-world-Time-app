@@ -32,8 +32,17 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 TextButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/location');
+                  onPressed: ()async {
+                   dynamic res = await Navigator.pushNamed(context, '/location');
+                  setState((){
+                    data={
+                      'time':res['time'],
+                      'location':res['location'],
+                      'isDaytime':res['isDaytime'],
+                      'flag':res['flag'],
+                    };
+                  });
+              
                   },
                   icon: Icon(
                     Icons.edit_location, 
