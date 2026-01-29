@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       
-                      backgroundColor: Colors.grey[450], // Corrected placement
+                      backgroundColor: Colors.grey[450], 
                       fontSize: 20.0,
                     ),
                   ),
