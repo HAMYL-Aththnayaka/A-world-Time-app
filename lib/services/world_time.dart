@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   String location; //location name for the UI
@@ -35,11 +36,14 @@ class WorldTime {
       if (offset.contains('+')) {
       now = now.add(Duration(hours: offsetHours, minutes: offsetMinutes));
     } else {
-      now = now.subtract(Duration(hours: offsetHours, minutes: offsetMinutes));
+      now =now.subtract(Duration(hours: offsetHours, minutes: offsetMinutes));
     }
       //set the time property
       isDaytime = now.hour > 6 && now.hour < 20 ? true : false;
-      time = "${now.hour}:${now.minute.toString().padLeft(2, '0')}";
+      time = DateFormat.jm().format(now);
+
+
+      
     } catch (e) {
       print('Caught error: $e');
       time = 'Could not get time data';

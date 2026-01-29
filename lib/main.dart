@@ -7,6 +7,7 @@ import 'package:world_time_app/pages/choose_location.dart';
 
 void main() {
   runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
    initialRoute:'/',
     routes:{
       '/':(context)=>loading(),
