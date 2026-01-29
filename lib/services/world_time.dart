@@ -4,11 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class WorldTime {
-  String location;
-  late String time;
-  String flag;
-  String url;
-  bool isDaytime = true;
+  String location; //location 
+  String time = ''; //the time 
+  String flag; //url to flag icon
+  String url; //location url for api 
+  bool isDaytime = true; //true or false if daytime or not
 
   WorldTime({
     required this.location,
@@ -18,17 +18,16 @@ class WorldTime {
 
   Future<void> getTime() async {
     try {
-      final apiKey = dotenv.env['RAPIDAPI_KEY'];
-      final apiHost = dotenv.env['RAPIDAPI_HOST'];
-      final baseUrl = dotenv.env['API_BASE_URL'];
+      final apiKey = dotenv.env['RAPIDAPI_KEY']!;
+      final apiHost = dotenv.env['RAPIDAPI_HOST']!;
 
-      final uri = Uri.parse('$baseUrl$url');
+      final uri = Uri.parse('https://world-time-api3.p.rapidapi.com/timezone/$url');
 
       final response = await http.get(
         uri,
         headers: {
-          'x-rapidapi-key': apiKey!,
-          'x-rapidapi-host': apiHost!,
+          'x-rapidapi-key': apiKey,
+          'x-rapidapi-host': apiHost,
         },
       );
 
@@ -38,12 +37,12 @@ class WorldTime {
 
       final data = jsonDecode(response.body);
 
-      final String datetime = data['datetime'];
-      final String offset = data['utc_offset'];
+      String datetime = data['datetime'];
+      String offset = data['utc_offset'];
 
       DateTime now = DateTime.parse(datetime);
-      final int offsetHours = int.parse(offset.substring(1, 3));
-      final int offsetMinutes = int.parse(offset.substring(4, 6));
+      int offsetHours = int.parse(offset.substring(1, 3));
+      int offsetMinutes = int.parse(offset.substring(4, 6));
 
       if (offset.startsWith('+')) {
         now = now.add(Duration(hours: offsetHours, minutes: offsetMinutes));
@@ -55,8 +54,8 @@ class WorldTime {
       time = DateFormat.jm().format(now);
 
     } catch (e) {
-      time = 'Error fetching time';
       print('WorldTime error: $e');
+      time = 'Could not get time data';
     }
   }
 }
